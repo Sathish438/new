@@ -1,0 +1,23 @@
+.product {
+  width: 50rem;
+  max-width: 40rem;
+  height: fit-content;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 30%);
+  column-gap: 20px;
+  row-gap: 20px;
+}
+
+.product-item {
+  background-color: white;
+  border: 1px solid burlywood;
+  border-radius: 10px;
+  box-shadow: 1px 2px 2px rgb(236, 213, 213);
+  padding: 10px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+}
