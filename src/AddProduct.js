@@ -21,16 +21,16 @@ const AddProduct = () => {
     (value) =>
       value.trim().length !== 0 && typeof +value === "number" && value > 100
   );
-  const {
-    hasError: hasQuantityError,
-    onBlurHandler: onQtyBlurHandler,
-    onChangeHandler: onQtyChangeHandler,
-    value: enteredQty,
-    isValid: qtyIsValid,
-  } = useInput(
-    (value) =>
-      value.trim().length !== 0 && typeof +value === "number" && value > 0
-  );
+  // const {
+  //   hasError: hasQuantityError,
+  //   onBlurHandler: onQtyBlurHandler,
+  //   onChangeHandler: onQtyChangeHandler,
+  //   value: enteredQty,
+  //   isValid: qtyIsValid,
+  // } = useInput(
+  //   (value) =>
+  //     value.trim().length !== 0 && typeof +value === "number" && value > 0
+  // );
 
   const { error, loading, sendReq } = useHttp();
   const [showModal, setShowModal] = useState(false);
@@ -39,7 +39,7 @@ const AddProduct = () => {
 
   let isValid = false;
 
-  if (nameIsValid && priceIsValid && qtyIsValid) {
+  if (nameIsValid && priceIsValid) {
     isValid = true;
   }
   const onSubmitHandler = async (e) => {
@@ -48,9 +48,8 @@ const AddProduct = () => {
     const product = {
       name: enteredName,
       price: enteredPrice,
-      qty: enteredQty,
+      // qty: enteredQty,
     };
-    console.log(sendReq);
     const url =
       "https://react-auth-1s-default-rtdb.asia-southeast1.firebasedatabase.app/products.json";
     sendReq(
@@ -60,7 +59,6 @@ const AddProduct = () => {
         body: JSON.stringify(product),
       },
       (data) => {
-        console.log(data);
         if (data) {
           response = data;
           navigateToProducts(data);
@@ -68,7 +66,6 @@ const AddProduct = () => {
         }
       }
     );
-    console.log(error);
     !response && setShowModal(true);
     //   const res = await fetch(url, {
     //   method: "POST",
@@ -82,10 +79,8 @@ const AddProduct = () => {
     // const data = await res.json();
     // console.log(data);
   };
-  console.log(error);
 
   const navigateToProducts = (data) => {
-    console.log(data);
     if (data) {
       setShowModal(false);
       history.push("/products");
@@ -98,7 +93,7 @@ const AddProduct = () => {
       {showModal && (
         <div id={styles["backdrop"]} onClick={() => setShowModal(false)}></div>
       )}
-      {showModal && (
+      {showModal && error && (
         <aside>
           {error && (
             <h2>{error}. Pls click Ok to Products page! (Cancel to retry)</h2>
@@ -139,7 +134,7 @@ const AddProduct = () => {
               </p>
             )}
           </div>
-          <div className={styles.formcontrol}>
+          {/* <div className={styles.formcontrol}>
             <label htmlFor="quantity">Quantity</label>
             <input
               type="text"
@@ -150,7 +145,7 @@ const AddProduct = () => {
             {hasQuantityError && (
               <p className={styles.error}>Please enter valid Qty ({"> 0"})!</p>
             )}
-          </div>
+          </div> */}
           <div className={styles.formcontrol}>
             <button disabled={!isValid}>Add product</button>
           </div>

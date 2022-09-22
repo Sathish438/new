@@ -19,6 +19,8 @@ const useInput = (validateInput) => {
     setHasError(!isValid && isTouched);
   }, [isValid, isTouched]);
 
+  useEffect(() => console.log("input"), []);
+
   return {
     hasError,
     onBlurHandler,

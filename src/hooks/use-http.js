@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const useHttp = () => {
   const [error, setError] = useState(null);
@@ -23,6 +23,8 @@ const useHttp = () => {
     }
     setLoading(false);
   }, []);
+
+  useEffect(() => console.log("effect"), []);
 
   return {
     loading,
